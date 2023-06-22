@@ -1,8 +1,16 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
+import { ref, watchEffect, type Ref } from 'vue'
 import { useArticlesStore } from '../stores/articles'
+
+interface ArticlesInfo {
+  id: string
+  author: string
+  title: string
+  description: string
+}
+
 const { fetchArticles } = useArticlesStore()
-const articles = ref([])
+const articles: Ref<ArticlesInfo[]> = ref([])
 
 watchEffect(async () => {
   articles.value = await fetchArticles()
@@ -11,9 +19,9 @@ watchEffect(async () => {
 
 <template v-if="articles.length">
   <div v-for="(article, index) in articles" :key="index">
-    <h1>{{ article.title }}</h1>
-    <p>{{ article.description }}</p>
-    <span>Author: {{ article.author }}</span>
+    <h1>{{ article?.title }}</h1>
+    <p>{{ article?.description }}</p>
+    <span>Author: {{ article?.author }}</span>
     <hr />
   </div>
 </template>

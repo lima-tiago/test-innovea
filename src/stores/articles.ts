@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 export const useArticlesStore = defineStore('articles', () => {
-  const fetchArticles: () => Promise<ArticlesInfo[]> = async () => {
+  const fetchArticles = async () => {
     const params = new URLSearchParams({
       q: 'tesla',
       from: '2023-05-22',
@@ -22,10 +22,3 @@ export const useArticlesStore = defineStore('articles', () => {
     fetchArticles
   }
 })
-
-interface ArticlesInfo {
-  id: string
-  author: string
-  title: string
-  description: string
-}
